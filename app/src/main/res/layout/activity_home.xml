@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/back_home">
+
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:elevation="100dp">
+
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="4"
+            android:text="Créer un nouveau voyage"/>
+
+        <ImageView
+            android:id="@+id/settings_btn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:src="@drawable/settings"
+            android:elevation="5dp"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Mes Voyages"
+        android:gravity="center"
+        android:textColor="#000" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_voyages"
+        android:paddingTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:scrollbars="vertical"/>
+
+
+</LinearLayout>

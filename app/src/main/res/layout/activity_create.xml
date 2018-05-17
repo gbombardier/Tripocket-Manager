@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gbombardier.tripocketmanager.activities.CreateActivity"
+    android:background="@drawable/create">
+
+    <LinearLayout
+        android:id="@+id/line_destination"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/destination_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Destination: "
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/destination_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:inputType="textEmailAddress"
+            android:lines = "1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_totalBudget"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/totalBudget_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Votre budget total: "
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/totalBudget_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:lines = "1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_departure"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/departure_edit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:text="Choisissez une date de départ"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/login_rounded_border"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_tripDays"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/tripDays_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Nombre de jours de voyage: "
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/tripDays_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:lines = "1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_mainPlaneCost"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/mainPlaneCost_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Le prix de votre avion: "
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mainPlaneCost_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:lines = "1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/line_mainPlaneDays"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/mainPlaneDays_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="La durée (jours) de l'avion: "
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mainPlaneDays_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:lines = "1"
+            android:textColor="#FFF"/>
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_validateTrip"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:text="Créer le voyage"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/login_rounded_border"/>
+
+
+</LinearLayout>

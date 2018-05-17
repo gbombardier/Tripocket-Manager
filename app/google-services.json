@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "334564865417",
+    "firebase_url": "https://tripocket-manager.firebaseio.com",
+    "project_id": "tripocket-manager",
+    "storage_bucket": "tripocket-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334564865417:android:a9fcb36a26879fad",
+        "android_client_info": {
+          "package_name": "com.gbombardier.tripocketmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334564865417-vp3g6v6vevedabsr1kkkt442se4m6uor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4OHKNFZEwB2jTsPWQw9RdXv76Pjtgbu4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

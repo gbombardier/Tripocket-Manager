@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.gbombardier.tripocketmanager.activities.LoginActivity"
+    android:background="@drawable/back">
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="16"
+        android:text="TriPocketManager"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#000"/>
+
+    <LinearLayout
+        android:id="@+id/login_zone"
+        android:layout_width="275dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="15"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="275dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="Courriel"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:layout_width="275dp"
+            android:layout_height="0dp"
+            android:layout_below="@id/edit_text_email"
+            android:layout_weight="1"
+            android:hint="Mot de passe"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnConnect"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Se connecter"
+                android:background="@drawable/login_rounded_border"/>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="140dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:layout_marginBottom="15dp"
+                android:text="S'enregistrer"
+                android:background="@drawable/login_rounded_border"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

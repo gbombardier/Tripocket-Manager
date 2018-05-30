@@ -17,7 +17,7 @@ public class Trip {
     private float remainingMoney;
     private Vector<DayInfo> daysList;
     private float bonusTravel;
-    private Date departure;
+    private String departure;
 
     public Trip() {
     }
@@ -129,11 +129,11 @@ public class Trip {
         this.bonusTravel = bonusTravel;
     }
 
-    public Date getDeparture() {
+    public String getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Date departure) {
+    public void setDeparture(String departure) {
         this.departure = departure;
     }
 }

@@ -1,31 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <TextView
         android:id="@+id/destination_title_watcher"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="50dp"
         android:text="En cours de chargement..."
+        android:fontFamily="sans-serif-light"
         android:textSize="17sp"
         android:textColor="@android:color/black"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@drawable/rect_back"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="461dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Date départ: " />
+
+            <TextView
+                android:id="@+id/trip_depart_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="yyyy-mm-jj " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Jours restants: " />
+
+            <TextView
+                android:id="@+id/trip_days_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="000 " />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Budget Total Restant: " />
+
+            <TextView
+                android:id="@+id/trip_budget_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0000$" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Style Voyage: " />
+
+            <TextView
+                android:id="@+id/trip_style_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="aaaaaaa" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="9"/>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/empty_watcher"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_height="50dp"
+        android:text="Mes Dépenses"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+
         android:fontFamily="sans-serif-light"
         android:textSize="17sp"
-        android:textColor="@android:color/black"
-        android:gravity="center"/>
+        android:textColor="@android:color/black"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_jours"
+        android:layout_width="match_parent"
+        android:layout_height="312dp"
+        android:layout_marginTop="260dp"
+        android:paddingTop="0dp"
+        android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,4 +148,4 @@
         android:layout_margin="16dp"
         app:backgroundTint="#F00"/>
 
-</LinearLayout>
+</FrameLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.models.Trip;
@@ -15,11 +16,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TripWatcherActivity extends AppCompatActivity {
     private DatabaseReference usersDatabase, tripsDatabase;
     private User currentUserInfo;
     private Trip currentTrip;
-    private TextView destinationTitle;
+    private TextView destinationTitle, dateDepartureView, remainingDaysView, budgetView, styleView;
     private ImageView addButton;
 
 
@@ -36,6 +41,11 @@ public class TripWatcherActivity extends AppCompatActivity {
         }
 
         destinationTitle = findViewById(R.id.destination_title_watcher);
+        dateDepartureView = findViewById(R.id.trip_depart_view);
+        remainingDaysView = findViewById(R.id.trip_days_view);
+        budgetView = findViewById(R.id.trip_budget_view);
+        styleView = findViewById(R.id.trip_style_view);
+
         addButton = findViewById(R.id.spend_add_button);
 
         //Pour gérer ce qui se passe si on appuie sur les boutons
@@ -89,5 +99,30 @@ public class TripWatcherActivity extends AppCompatActivity {
     //Pour mettre à jour les infos du voyage après l'avoir loadé (page de chargement)
     public void updateUI(){
         destinationTitle.setText(currentTrip.getDestination());
+        dateDepartureView.setText(currentTrip.getDeparture());
+        budgetView.setText(String.valueOf(currentTrip.getRemainingMoney()));
+        styleView.setText("Non défini");
+
+        Date date = new Date();
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(currentTrip.getDeparture());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Erreur dans le format de la date",Toast.LENGTH_LONG).show();
+        }
+
+        if(date.getTime()> now.getTime()){
+            remainingDaysView.setText(String.valueOf(currentTrip.getTotalTripDays()));
+        }else{
+            if(-(date.getTime()- now.getTime())/(1000*60*60*24) >= currentTrip.getTotalTripDays()){
+                remainingDaysView.setText("Voyage Terminé");
+            }else{
+                remainingDaysView.setText(String.valueOf(currentTrip.getTotalTripDays() + (date.getTime()- now.getTime())/(1000*60*60*24)));
+            }
+
+        }
+
     }
 }

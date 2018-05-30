@@ -82,13 +82,24 @@
 
         <Button
             android:id="@+id/departure_edit"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:onClick="showTimePickerDialog"
             android:text="Choisissez une date de départ"
             android:layout_gravity="center"
             android:layout_marginLeft="50dp"
             android:background="@drawable/login_rounded_border"/>
+
+        <TextView
+            android:id="@+id/departure_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pas de date"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#FFF"/>
 
     </LinearLayout>
 

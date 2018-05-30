@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
@@ -14,12 +16,15 @@ import com.gbombardier.tripocketmanager.fragments.DatePickerFragment;
 import com.gbombardier.tripocketmanager.models.DayInfo;
 import com.gbombardier.tripocketmanager.models.Trip;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateActivity extends AppCompatActivity implements View.OnClickListener{
     private Button createButton;
     private Trip currentTrip;
     private EditText destinationEdit, budgetEdit, nbrDaysEdit, planePriceEdit, planeDaysEdit;
+    private TextView departureDateView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         nbrDaysEdit = findViewById(R.id.tripDays_edit);
         planePriceEdit = findViewById(R.id.mainPlaneCost_edit);
         planeDaysEdit = findViewById(R.id.mainPlaneDays_edit);
+        departureDateView = findViewById(R.id.departure_view);
 
         createButton.setOnClickListener(this);
     }
@@ -43,8 +49,30 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
 
     public void writeTrip(){
         currentTrip = new Trip(destinationEdit.getText().toString(), Float.parseFloat(planePriceEdit.getText().toString()), Integer.parseInt(planeDaysEdit.getText().toString()), Integer.parseInt(nbrDaysEdit.getText().toString()), null, Integer.parseInt(nbrDaysEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), null, 0);
-        currentTrip.setDeparture(new Date());
+
+        //Pour transformer la date
+        /*Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(departureDateView.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Erreur dans le format de la date",Toast.LENGTH_LONG).show();
+        }*/
+        currentTrip.setDeparture(departureDateView.getText().toString());
+
         DatabaseProfile.getInstance(this).writeTrip(currentTrip);
+    }
+
+    public boolean tripValide(){
+        boolean valide = true;
+
+        if(departureDateView.getText().equals("Pas de date")){
+            valide = false;
+            Toast.makeText(this, "Veuillez choisir une date de départ.",Toast.LENGTH_LONG).show();
+        }
+
+        return valide;
     }
 
     @Override
@@ -52,9 +80,12 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         final int id = v.getId();
 
         if(id==R.id.btn_validateTrip){
-            writeTrip();
-            Intent i = new Intent(CreateActivity.this, HomeActivity.class);
-            startActivity(i);
+            if(tripValide()){
+                writeTrip();
+                Intent i = new Intent(CreateActivity.this, HomeActivity.class);
+                startActivity(i);
+            }
+
         }
     }
 }

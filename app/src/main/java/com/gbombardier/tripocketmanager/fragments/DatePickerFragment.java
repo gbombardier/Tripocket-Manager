@@ -7,8 +7,10 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
 
 import java.util.Calendar;
@@ -31,6 +33,20 @@ public class DatePickerFragment extends DialogFragment
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
+        TextView departureEdit = getActivity().findViewById(R.id.departure_view);
+        String stringMonth, stringDay;
+        if(month<=9){
+            stringMonth = "0"+month;
+        }else{
+            stringMonth = String.valueOf(month);
+        }
 
+        if(day<=9){
+            stringDay = "0"+day;
+        }else{
+            stringDay = String.valueOf(day);
+        }
+        String date = year + "-" + stringMonth + "-" + stringDay;
+        departureEdit.setText(date);
     }
 }

@@ -110,7 +110,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (com.google.firebase.database.DataSnapshot tripsDataSnapshot : dataSnapshot.getChildren()) {
                     Trip trip = tripsDataSnapshot.getValue(Trip.class);
-                    trip.setDeparture(new Date());
                     currentUserInfo.addTrip(trip);
                     tripList.add(trip);
                     adapter.notifyItemInserted(tripList.size()-1);

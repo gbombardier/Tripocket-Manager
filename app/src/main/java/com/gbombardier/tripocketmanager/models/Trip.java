@@ -2,11 +2,12 @@ package com.gbombardier.tripocketmanager.models;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Trip {
+public class Trip implements Serializable{
     private String destination;
     private float mainPlaneCost;
     private float mainPlaneDays;

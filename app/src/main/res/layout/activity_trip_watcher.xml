@@ -116,15 +116,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="9"/>
+            android:layout_weight="12"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/trip_moreinfo_button"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="Plus d'informations"
+        android:gravity="center"
+        android:layout_marginTop="185dp"
+        android:background="@drawable/login_rounded_border"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Mes Dépenses"
         android:gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="210dp"
 
         android:fontFamily="sans-serif-light"
         android:textSize="17sp"

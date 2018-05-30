@@ -1,8 +1,10 @@
 package com.gbombardier.tripocketmanager.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ public class TripWatcherActivity extends AppCompatActivity {
     private Trip currentTrip;
     private TextView destinationTitle, dateDepartureView, remainingDaysView, budgetView, styleView;
     private ImageView addButton;
+    private Button moreInfoButton;
 
 
     @Override
@@ -45,6 +48,7 @@ public class TripWatcherActivity extends AppCompatActivity {
         remainingDaysView = findViewById(R.id.trip_days_view);
         budgetView = findViewById(R.id.trip_budget_view);
         styleView = findViewById(R.id.trip_style_view);
+        moreInfoButton = findViewById(R.id.trip_moreinfo_button);
 
         addButton = findViewById(R.id.spend_add_button);
 
@@ -52,6 +56,14 @@ public class TripWatcherActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            }
+        });
+
+        moreInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TripWatcherActivity.this, MoreInfoActivity.class);
+                startActivity(i);
             }
         });
 

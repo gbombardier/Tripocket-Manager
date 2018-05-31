@@ -60,6 +60,10 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "Erreur dans le format de la date",Toast.LENGTH_LONG).show();
         }*/
         currentTrip.setDeparture(departureDateView.getText().toString());
+        currentTrip.setFood(25);
+        currentTrip.setActivity(25);
+        currentTrip.setLodging(25);
+        currentTrip.setTransport(25);
 
         DatabaseProfile.getInstance(this).writeTrip(currentTrip);
     }

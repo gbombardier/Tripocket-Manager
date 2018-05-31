@@ -13,12 +13,13 @@
         android:textSize="17sp"
         android:textColor="@android:color/black"
         android:gravity="center"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rect_back"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="461dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="65dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -103,13 +104,13 @@
                 android:gravity="center"
                 android:text="Style Voyage: " />
 
-            <TextView
+            <Spinner
                 android:id="@+id/trip_style_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="aaaaaaa" />
+                />
 
         </LinearLayout>
 

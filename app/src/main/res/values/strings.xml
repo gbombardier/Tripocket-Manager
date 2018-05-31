@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">TriPocket Manager</string>
+
+    <string-array name="style_array">
+        <item>Aventurier</item>
+        <item>Culinaire</item>
+        <item>Comfortable</item>
+        <item>Par défaut</item>
+    </string-array>
+
 </resources>
+
+

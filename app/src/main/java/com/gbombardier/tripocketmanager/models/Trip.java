@@ -8,17 +8,19 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class Trip implements Serializable{
+    private String id;
     private String destination;
     private float mainPlaneCost;
     private float mainPlaneDays;
     private int totalTripDays;
-    private HashMap<String,Object> tripStyle;
+    private String tripStyle;
     private int remainingDays;
     private float totalBudget;
     private float remainingMoney;
     private Vector<DayInfo> daysList;
     private float bonusTravel;
     private String departure;
+    private float food, lodging, activity, transport;
 
     public Trip() {
     }
@@ -35,7 +37,7 @@ public class Trip implements Serializable{
         this.totalBudget = totalBudget;
     }
 
-    public Trip(String destination, float mainPlaneCost, float mainPlaneDays, int totalTripDays, HashMap<String,Object> tripStyle, int remainingDays, float totalBudget, float remainingMoney, Vector<DayInfo> daysList, float bonusTravel) {
+    public Trip(String destination, float mainPlaneCost, float mainPlaneDays, int totalTripDays, String tripStyle, int remainingDays, float totalBudget, float remainingMoney, Vector<DayInfo> daysList, float bonusTravel) {
         this.destination = destination;
         this.mainPlaneCost = mainPlaneCost;
         this.mainPlaneDays = mainPlaneDays;
@@ -46,6 +48,14 @@ public class Trip implements Serializable{
         this.remainingMoney = remainingMoney;
         this.daysList = daysList;
         this.bonusTravel = bonusTravel;
+    }
+
+    public String getid() {
+        return id;
+    }
+
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getDestination() {
@@ -80,12 +90,11 @@ public class Trip implements Serializable{
         this.totalTripDays = totalTripDays;
     }
 
-    @Exclude
-    public HashMap<String,Object> getTripStyle() {
+    public String getTripStyle() {
         return tripStyle;
     }
 
-    public void setTripStyle(HashMap<String,Object> tripStyle) {
+    public void setTripStyle(String tripStyle) {
         this.tripStyle = tripStyle;
     }
 
@@ -136,5 +145,37 @@ public class Trip implements Serializable{
 
     public void setDeparture(String departure) {
         this.departure = departure;
+    }
+
+    public float getFood() {
+        return food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public float getLodging() {
+        return lodging;
+    }
+
+    public void setLodging(int lodging) {
+        this.lodging = lodging;
+    }
+
+    public float getActivity() {
+        return activity;
+    }
+
+    public void setActivity(int activity) {
+        this.activity = activity;
+    }
+
+    public float getTransport() {
+        return transport;
+    }
+
+    public void setTransport(int transport) {
+        this.transport = transport;
     }
 }

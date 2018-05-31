@@ -87,12 +87,47 @@ public class DatabaseProfile {
         currentTripRef.child("mainPlaneCost").setValue(trip.getMainPlaneCost());
         currentTripRef.child("mainPlaneDays").setValue(trip.getMainPlaneDays());
         currentTripRef.child("totalTripDays").setValue(trip.getTotalTripDays());
-        currentTripRef.child("tripStyle").setValue("none");
+        currentTripRef.child("tripStyle").setValue("default");
         currentTripRef.child("remainingDays").setValue(trip.getRemainingDays());
         currentTripRef.child("totalBudget").setValue(trip.getTotalBudget());
         currentTripRef.child("remainingMoney").setValue(trip.getRemainingMoney());
         currentTripRef.child("daysList").setValue("none");
         currentTripRef.child("bonusTravel").setValue(trip.getBonusTravel());
         currentTripRef.child("departure").setValue(trip.getDeparture());
+        currentTripRef.child("food").setValue(trip.getFood());
+        currentTripRef.child("lodging").setValue(trip.getLodging());
+        currentTripRef.child("activity").setValue(trip.getActivity());
+        currentTripRef.child("transport").setValue(trip.getTransport());
+    }
+
+    public void writeStyle(String style, String id){
+        DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(id);
+
+        if(style.equals("Aventurier")){
+            currentTripRef.child("tripStyle").setValue("Aventurier");
+            currentTripRef.child("food").setValue(20);
+            currentTripRef.child("lodging").setValue(15);
+            currentTripRef.child("activity").setValue(40);
+            currentTripRef.child("transport").setValue(25);
+        }else if(style.equals("Culinaire")){
+            currentTripRef.child("tripStyle").setValue("Culinaire");
+            currentTripRef.child("food").setValue(45);
+            currentTripRef.child("lodging").setValue(20);
+            currentTripRef.child("activity").setValue(20);
+            currentTripRef.child("transport").setValue(15);
+        }else if(style.equals("Comfortable")){
+            currentTripRef.child("tripStyle").setValue("Comfortable");
+            currentTripRef.child("food").setValue(30);
+            currentTripRef.child("lodging").setValue(40);
+            currentTripRef.child("activity").setValue(20);
+            currentTripRef.child("transport").setValue(10);
+        }else if(style.equals("Par défaut")){
+            currentTripRef.child("tripStyle").setValue("default");
+            currentTripRef.child("food").setValue(35);
+            currentTripRef.child("lodging").setValue(30);
+            currentTripRef.child("activity").setValue(20);
+            currentTripRef.child("transport").setValue(15);
+        }
+
     }
 }

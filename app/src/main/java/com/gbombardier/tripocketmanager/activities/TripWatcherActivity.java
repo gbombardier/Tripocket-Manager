@@ -65,7 +65,7 @@ public class TripWatcherActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(TripWatcherActivity.this, ExpenseActivity.class);
                 i.putExtra("trip", currentTrip);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
 
@@ -212,5 +212,11 @@ public class TripWatcherActivity extends AppCompatActivity {
         }
 
         moreInfoButton.setVisibility(View.VISIBLE);
+    }
+
+    //Quand on vient d'ajouter une dépense
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

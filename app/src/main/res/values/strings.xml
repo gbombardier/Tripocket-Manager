@@ -8,6 +8,13 @@
         <item>Par défaut</item>
     </string-array>
 
+    <string-array name="category_array">
+        <item>Nourriture</item>
+        <item>Hébergement</item>
+        <item>Activités</item>
+        <item>Transport</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

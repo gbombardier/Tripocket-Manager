@@ -35,6 +35,7 @@ public class TripWatcherActivity extends AppCompatActivity {
     private Spinner styleView;
     private ImageView addButton;
     private Button moreInfoButton;
+    private float totalBudget;
 
 
     @Override
@@ -62,6 +63,9 @@ public class TripWatcherActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(TripWatcherActivity.this, ExpenseActivity.class);
+                i.putExtra("trip", currentTrip);
+                startActivity(i);
             }
         });
 
@@ -73,6 +77,8 @@ public class TripWatcherActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        moreInfoButton.setVisibility(View.INVISIBLE);
 
         //Pour le spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.style_array, android.R.layout.simple_spinner_item);
@@ -113,13 +119,10 @@ public class TripWatcherActivity extends AppCompatActivity {
                         currentTrip.setTransport(15);
                     }
                 }
-
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         getUserTripInfo();
@@ -154,6 +157,7 @@ public class TripWatcherActivity extends AppCompatActivity {
                     Trip trip = tripsDataSnapshot.getValue(Trip.class);
                     if(trip.getDestination().equals(currentTrip.getDestination())){
                         currentTrip = trip;
+                        totalBudget = currentTrip.getTotalBudget()-currentTrip.getMainPlaneCost();
                         updateUI();
                     }
                 }
@@ -177,7 +181,7 @@ public class TripWatcherActivity extends AppCompatActivity {
     public void updateUI(){
         destinationTitle.setText(currentTrip.getDestination());
         dateDepartureView.setText(currentTrip.getDeparture());
-        budgetView.setText(String.valueOf(currentTrip.getRemainingMoney()));
+        budgetView.setText(String.valueOf(totalBudget));
 
         if(currentTrip.getTripStyle().equals("default")){
             styleView.setSelection(getIndex(styleView, "Par défaut"));
@@ -197,15 +201,16 @@ public class TripWatcherActivity extends AppCompatActivity {
         }
 
         if(date.getTime()> now.getTime()){
-            remainingDaysView.setText(String.valueOf(currentTrip.getTotalTripDays()));
+            float daysRemaining = (date.getTime()- now.getTime())/(1000*60*60*24);
+            remainingDaysView.setText(String.valueOf(daysRemaining));
         }else{
             if(-(date.getTime()- now.getTime())/(1000*60*60*24) >= currentTrip.getTotalTripDays()){
                 remainingDaysView.setText("Voyage Terminé");
             }else{
                 remainingDaysView.setText(String.valueOf(currentTrip.getTotalTripDays() + (date.getTime()- now.getTime())/(1000*60*60*24)));
             }
-
         }
 
+        moreInfoButton.setVisibility(View.VISIBLE);
     }
 }

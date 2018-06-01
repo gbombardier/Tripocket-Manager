@@ -21,7 +21,8 @@
         <activity android:name=".activities.SettingsActivity" />
         <activity android:name=".activities.CreateActivity" />
         <activity android:name=".activities.TripWatcherActivity" />
-        <activity android:name=".activities.MoreInfoActivity"></activity>
+        <activity android:name=".activities.MoreInfoActivity" />
+        <activity android:name=".activities.ExpenseActivity"></activity>
     </application>
 
 </manifest>

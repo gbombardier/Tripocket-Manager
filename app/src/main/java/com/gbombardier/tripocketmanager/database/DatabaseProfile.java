@@ -90,7 +90,7 @@ public class DatabaseProfile {
         currentTripRef.child("tripStyle").setValue("default");
         currentTripRef.child("remainingDays").setValue(trip.getRemainingDays());
         currentTripRef.child("totalBudget").setValue(trip.getTotalBudget());
-        currentTripRef.child("remainingMoney").setValue(trip.getRemainingMoney());
+        currentTripRef.child("remainingMoney").setValue(trip.getTotalBudget()-trip.getMainPlaneCost());
         currentTripRef.child("daysList").setValue("none");
         currentTripRef.child("bonusTravel").setValue(trip.getBonusTravel());
         currentTripRef.child("departure").setValue(trip.getDeparture());

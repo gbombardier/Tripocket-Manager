@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.models.Trip;
 
+import java.text.NumberFormat;
+
 public class MoreInfoActivity extends AppCompatActivity {
     private Trip currentTrip = new Trip();
     private TextView nourritureTotalView, nourritureJourView, nourritureRestantView, nourritureJourRestantView;
@@ -15,6 +17,8 @@ public class MoreInfoActivity extends AppCompatActivity {
     private TextView transTotalView, transJourView, transRestantView, transJourRestantView;
     private TextView totalTotalView, totalJourView, totalRestantView, totalJourRestantView;
     private TextView styleView;
+    private float totalBudget;
+    NumberFormat formatter = NumberFormat.getNumberInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,8 @@ public class MoreInfoActivity extends AppCompatActivity {
         nourritureRestantView = findViewById(R.id.nourriture_budgetRestant_view);
         hebTotalView = findViewById(R.id.hebergement_budgetTotal_view);
         hebJourView = findViewById(R.id.hebergement_budgetJourTotal_view);
-        hebRestantView = findViewById(R.id.hebergement_budgetJourRestant_view);
-        hebJourRestantView = findViewById(R.id.hebergement_budgetRestant_view);
+        hebRestantView = findViewById(R.id.hebergement_budgetRestant_view);
+        hebJourRestantView = findViewById(R.id.hebergement_budgetJourRestant_view);
         actTotalView = findViewById(R.id.activites_budgetTotal_view);
         actJourView = findViewById(R.id.activites_budgetJourTotal_view);
         actJourRestantView = findViewById(R.id.activites_budgetJourRestant_view);
@@ -43,10 +47,12 @@ public class MoreInfoActivity extends AppCompatActivity {
         totalRestantView = findViewById(R.id.total_budgetRestant_view);
         styleView = findViewById(R.id.style_view);
 
-
+        formatter.setMinimumFractionDigits(2);
+        formatter.setMaximumFractionDigits(2);
 
         if( getIntent().getExtras()!=null){
             currentTrip = (Trip)getIntent().getSerializableExtra("trip");
+            totalBudget = currentTrip.getTotalBudget() - currentTrip.getMainPlaneCost();
             updateUI();
         }
 
@@ -63,11 +69,34 @@ public class MoreInfoActivity extends AppCompatActivity {
     }
 
     public void updateUI(){
-        totalTotalView.setText(String.valueOf(currentTrip.getTotalBudget()));
-        nourritureTotalView.setText(String.valueOf(currentTrip.getTotalBudget()*(currentTrip.getFood()/100)));
-        hebTotalView.setText(String.valueOf(currentTrip.getTotalBudget()*(currentTrip.getLodging()/100)));
-        actTotalView.setText(String.valueOf(currentTrip.getTotalBudget()*(currentTrip.getActivity()/100)));
-        transTotalView.setText(String.valueOf(currentTrip.getTotalBudget()*(currentTrip.getTransport()/100)));
         styleView.setText(currentTrip.getTripStyle());
+
+        //Les budgets totaux
+        totalTotalView.setText(String.valueOf(formatter.format(totalBudget)));
+        nourritureTotalView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getFood()/100))));
+        hebTotalView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getLodging()/100))));
+        actTotalView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getActivity()/100))));
+        transTotalView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getTransport()/100))));
+
+        //Les budgets par jour
+        totalJourView.setText(String.valueOf(formatter.format(totalBudget/currentTrip.getTotalTripDays())));
+        nourritureJourView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getFood()/100)/currentTrip.getTotalTripDays())));
+        hebJourView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getLodging()/100)/currentTrip.getTotalTripDays())));
+        actJourView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getActivity()/100)/currentTrip.getTotalTripDays())));
+        transJourView.setText(String.valueOf(formatter.format(totalBudget*(currentTrip.getTransport()/100)/currentTrip.getTotalTripDays())));
+
+        //Les budgets restants
+        totalRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney())));
+        nourritureRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getFood()/100))));
+        hebRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getLodging()/100))));
+        actRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getActivity()/100))));
+        transRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getTransport()/100))));
+
+        //Les budgets par jour restants
+        totalJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()/currentTrip.getTotalTripDays())));
+        nourritureJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getFood()/100)/currentTrip.getTotalTripDays())));
+        hebJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getLodging()/100)/currentTrip.getTotalTripDays())));
+        actJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getActivity()/100)/currentTrip.getTotalTripDays())));
+        transJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getTransport()/100)/currentTrip.getTotalTripDays())));
     }
 }

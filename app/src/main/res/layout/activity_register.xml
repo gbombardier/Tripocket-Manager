@@ -6,19 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.gbombardier.tripocketmanager.activities.RegisterActivity"
-    android:background="@drawable/login_bg"
     android:id="@+id/register_main_layout">
 
-    <TextView
-        android:id="@+id/register_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="S'enregistrer"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_weight="2.5"
+        android:elevation="5dp"
+        android:background="@drawable/login_bg">
+
+        <ImageView
+            android:id="@+id/register_back_button"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_margin="13dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/register_title"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="9"
+            android:gravity="start"
+            android:layout_marginTop="20dp"
+            android:text="S'enregistrer"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/register_zone"
@@ -46,8 +64,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Entrez votre courriel"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/email_register"
@@ -56,6 +74,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:inputType="textEmailAddress"
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp"
                 android:lines = "1"/>
 
         </LinearLayout>
@@ -76,9 +96,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Mot de passe: "
-                android:textSize="16sp"
-
-                android:textStyle="bold" />
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/pwd_register"
@@ -87,6 +106,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:inputType="textPassword"
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp"
                 android:lines = "1"/>
 
         </LinearLayout>
@@ -107,9 +128,8 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="Confirmez le mdp: "
-                android:textSize="16sp"
-
-                android:textStyle="bold" />
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/pwd2_register"
@@ -118,6 +138,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:inputType="textPassword"
+                app:fontFamily="@font/roboto_thin"
+                android:textSize="16sp"
                 android:lines = "1"/>
 
         </LinearLayout>
@@ -127,9 +149,11 @@
             android:layout_width="200dp"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_weight="0.5"
+            android:layout_weight="0.3"
             android:gravity="center"
             android:text="S'enregistrer"
+            app:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
             android:background="@drawable/login_rounded_border"/>
 
     </LinearLayout>

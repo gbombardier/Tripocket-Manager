@@ -16,11 +16,11 @@
         android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
         android:layout_weight="16"
-        android:text="TriPocketManager"
         android:gravity="center"
+        android:text="TriPocketManager"
+        android:textColor="#000"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#000"/>
+        app:fontFamily="@font/roboto_thin" />
 
     <LinearLayout
         android:id="@+id/login_zone"
@@ -36,7 +36,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="Courriel"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            app:fontFamily="@font/roboto_thin"/>
 
         <EditText
             android:id="@+id/edit_text_password"
@@ -45,6 +46,7 @@
             android:layout_below="@id/edit_text_email"
             android:layout_weight="1"
             android:hint="Mot de passe"
+            app:fontFamily="@font/roboto_thin"
             android:inputType="textPassword" />
 
         <LinearLayout
@@ -61,6 +63,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="Se connecter"
+                app:fontFamily="@font/roboto_thin"
                 android:background="@drawable/login_rounded_border"/>
 
             <Button
@@ -71,6 +74,7 @@
                 android:layout_weight="2"
                 android:layout_marginBottom="15dp"
                 android:text="S'enregistrer"
+                app:fontFamily="@font/roboto_thin"
                 android:background="@drawable/login_rounded_border"/>
         </LinearLayout>
 

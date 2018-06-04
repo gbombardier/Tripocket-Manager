@@ -28,14 +28,18 @@
             android:layout_weight="6"
             android:text="Ajout d'une dépense"
             android:gravity="center"
-            android:textSize="20dp"/>
+            app:fontFamily="@font/roboto"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/expense_validate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="Enregistrer"/>
+            app:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:text="Enregistrer"
+            android:background="@drawable/button_effect"/>
 
     </LinearLayout>
 
@@ -51,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:text="Catégorie: " />
 
         <Spinner
@@ -58,6 +64,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:gravity="center" />
 
     </LinearLayout>
@@ -74,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:text="Description: " />
 
         <EditText
@@ -81,6 +91,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -97,6 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:text="Montant: " />
 
         <EditText
@@ -104,6 +118,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:inputType="number"/>
 
     </LinearLayout>

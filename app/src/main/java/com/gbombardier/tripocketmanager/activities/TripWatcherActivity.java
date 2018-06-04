@@ -81,7 +81,7 @@ public class TripWatcherActivity extends AppCompatActivity {
         moreInfoButton.setVisibility(View.INVISIBLE);
 
         //Pour le spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.style_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.style_array, R.layout.spinner_design);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         styleView.setAdapter(adapter);
         styleView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

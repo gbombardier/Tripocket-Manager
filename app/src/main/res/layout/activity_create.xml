@@ -26,6 +26,7 @@
             android:gravity="center_horizontal"
             android:text="Destination: "
             android:textColor="#FFF"
+            app:fontFamily="@font/roboto_thin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -35,7 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:lines = "1"/>
 
     </LinearLayout>
@@ -58,6 +61,7 @@
             android:gravity="center_horizontal"
             android:text="Budget total (Avec avion): "
             android:textColor="#000"
+            app:fontFamily="@font/roboto_thin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -68,6 +72,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:inputType="number"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:lines = "1"/>
 
     </LinearLayout>
@@ -89,7 +95,10 @@
             android:text="Choisissez une date de départ"
             android:layout_gravity="center"
             android:layout_marginLeft="50dp"
-            android:background="@drawable/login_rounded_border"/>
+            app:fontFamily="@font/roboto_medium"
+            android:elevation="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/button_effect"/>
 
         <TextView
             android:id="@+id/departure_view"
@@ -99,6 +108,8 @@
             android:text="Pas de date"
             android:gravity="center"
             android:layout_gravity="center"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:textColor="#FFF"/>
 
     </LinearLayout>
@@ -121,6 +132,7 @@
             android:gravity="center_horizontal"
             android:text="Nombre de jours de voyage: "
             android:textColor="#000"
+            app:fontFamily="@font/roboto_thin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -131,6 +143,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:inputType="number"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:lines = "1"/>
 
     </LinearLayout>
@@ -153,6 +167,7 @@
             android:gravity="center_horizontal"
             android:text="Le prix de votre avion: "
             android:textColor="#000"
+            app:fontFamily="@font/roboto_thin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -163,6 +178,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:inputType="number"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:lines = "1"/>
 
     </LinearLayout>
@@ -185,6 +202,7 @@
             android:gravity="center_horizontal"
             android:text="La durée (jours) de l'avion: "
             android:textColor="#FFF"
+            app:fontFamily="@font/roboto_thin"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -195,6 +213,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:inputType="number"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
             android:lines = "1"
             android:textColor="#FFF"/>
 
@@ -210,8 +230,11 @@
         android:layout_weight="0.5"
         android:gravity="center"
         android:text="Créer le voyage"
+        android:elevation="5dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/login_rounded_border"/>
+        app:fontFamily="@font/roboto_medium"
+        android:textSize="14sp"
+        android:background="@drawable/button_effect"/>
 
 
 </LinearLayout>

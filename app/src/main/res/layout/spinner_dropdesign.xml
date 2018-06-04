@@ -1,0 +1,11 @@
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:id="@+id/text1"
+    android:text="aaaa"
+    app:fontFamily="@font/roboto_thin"
+    style="@style/MySpinnerLook"
+    android:textSize="16sp"
+    android:gravity="center"/>

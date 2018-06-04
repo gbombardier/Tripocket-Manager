@@ -2,9 +2,11 @@ package com.gbombardier.tripocketmanager.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,7 +33,7 @@ import java.util.Vector;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView boutonParam;
-    private Button buttonCreate;
+    private FloatingActionButton buttonCreate;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseProfile myDatabase;
     private Vector<Trip> tripList = new Vector<Trip>();
@@ -63,7 +65,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         boutonParam = findViewById(R.id.settings_btn);
-        buttonCreate = (Button)findViewById(R.id.button_create);
+        buttonCreate = (FloatingActionButton) findViewById(R.id.button_create);
         viewTrips = findViewById(R.id.recycler_voyages);
 
         mLayoutManager = new LinearLayoutManager(this);
@@ -71,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         viewTrips.setItemAnimator(new DefaultItemAnimator());
         adapter = new TripAdapter(tripList, HomeActivity.this);
         viewTrips.setAdapter(adapter);
+        viewTrips.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
         boutonParam.setOnClickListener(this);
         buttonCreate.setOnClickListener(this);

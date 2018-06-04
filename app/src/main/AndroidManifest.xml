@@ -23,6 +23,10 @@
         <activity android:name=".activities.TripWatcherActivity" />
         <activity android:name=".activities.MoreInfoActivity" />
         <activity android:name=".activities.ExpenseActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

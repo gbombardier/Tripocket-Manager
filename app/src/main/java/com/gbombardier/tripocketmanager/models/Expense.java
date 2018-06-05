@@ -1,9 +1,16 @@
 package com.gbombardier.tripocketmanager.models;
 
-public class Expense {
+import java.io.Serializable;
+
+public class Expense implements Serializable {
     private String category, title;
     private float value;
 
+    public Expense(){
+        this.category = "none";
+        this.title = "none";
+        this.value = 0;
+    }
     public Expense(String category, String title, float value) {
         this.category = category;
         this.title = title;

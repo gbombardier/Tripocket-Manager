@@ -3,6 +3,10 @@ package com.gbombardier.tripocketmanager.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gbombardier.tripocketmanager.R;
+import com.gbombardier.tripocketmanager.adapters.DayAdapter;
+import com.gbombardier.tripocketmanager.adapters.TripAdapter;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
+import com.gbombardier.tripocketmanager.models.DaysInfos;
+import com.gbombardier.tripocketmanager.models.Expense;
 import com.gbombardier.tripocketmanager.models.Trip;
 import com.gbombardier.tripocketmanager.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +34,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 public class TripWatcherActivity extends AppCompatActivity {
-    private DatabaseReference usersDatabase, tripsDatabase;
+    private DatabaseReference usersDatabase, tripsDatabase, daysDatabase;
     private User currentUserInfo;
     private Trip currentTrip;
     private TextView destinationTitle, dateDepartureView, remainingDaysView, budgetView;
@@ -36,6 +46,10 @@ public class TripWatcherActivity extends AppCompatActivity {
     private ImageView addButton;
     private Button moreInfoButton;
     private float totalBudget;
+    private RecyclerView viewDays;
+    private List<DaysInfos> daysList;
+    private DayAdapter adapterRecycler;
+    private LinearLayoutManager mLayoutManager;
 
 
     @Override
@@ -55,9 +69,10 @@ public class TripWatcherActivity extends AppCompatActivity {
         remainingDaysView = findViewById(R.id.trip_days_view);
         budgetView = findViewById(R.id.trip_budget_view);
         styleView = findViewById(R.id.trip_style_view);
-        moreInfoButton = findViewById(R.id.trip_moreinfo_button);
-
         addButton = findViewById(R.id.spend_add_button);
+        moreInfoButton = findViewById(R.id.trip_moreinfo_button);
+        viewDays = findViewById(R.id.recycler_jours);
+
 
         //Pour gérer ce qui se passe si on appuie sur les boutons
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +140,8 @@ public class TripWatcherActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+
+
         getUserTripInfo();
     }
 
@@ -148,7 +165,7 @@ public class TripWatcherActivity extends AppCompatActivity {
     }
 
     //Va chercher les infos du voyage sélectionné
-    public void getTripInfo(User user){
+    public void getTripInfo(final User user){
         tripsDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getid()).child("tripsList");
         tripsDatabase.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
             @Override
@@ -157,8 +174,10 @@ public class TripWatcherActivity extends AppCompatActivity {
                     Trip trip = tripsDataSnapshot.getValue(Trip.class);
                     if(trip.getDestination().equals(currentTrip.getDestination())){
                         currentTrip = trip;
+                        daysList = currentTrip.getDaysList();
                         totalBudget = currentTrip.getTotalBudget()-currentTrip.getMainPlaneCost();
                         updateUI();
+                        getDaysList(user);
                     }
                 }
             }
@@ -214,9 +233,36 @@ public class TripWatcherActivity extends AppCompatActivity {
         moreInfoButton.setVisibility(View.VISIBLE);
     }
 
+    //Pour avoir les infos des journées
+    public void getDaysList(User user){
+        daysDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getid()).child("tripsList").child(currentTrip.getid()).child("daysList");
+        daysDatabase.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentTrip.eraseList();
+                for (com.google.firebase.database.DataSnapshot daysDataSnapshot : dataSnapshot.getChildren()) {
+                    DaysInfos day = daysDataSnapshot.getValue(DaysInfos.class);
+                    currentTrip.addDay(day);
+                }
+
+                //Pour le recyclerView
+                mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                viewDays.setLayoutManager(mLayoutManager);
+                viewDays.setItemAnimator(new DefaultItemAnimator());
+                adapterRecycler = new DayAdapter(currentTrip.getDaysList(), TripWatcherActivity.this);
+                viewDays.setAdapter(adapterRecycler);
+                viewDays.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}});
+    }
+
     //Quand on vient d'ajouter une dépense
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        getDaysList(currentUserInfo);
     }
+
+
 }

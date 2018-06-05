@@ -1,7 +1,10 @@
 package com.gbombardier.tripocketmanager.database;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.gbombardier.tripocketmanager.models.DaysInfos;
+import com.gbombardier.tripocketmanager.models.Expense;
 import com.gbombardier.tripocketmanager.models.Trip;
 import com.gbombardier.tripocketmanager.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * Created by gabb_ on 2018-01-08.
@@ -91,15 +95,31 @@ public class DatabaseProfile {
         currentTripRef.child("remainingDays").setValue(trip.getRemainingDays());
         currentTripRef.child("totalBudget").setValue(trip.getTotalBudget());
         currentTripRef.child("remainingMoney").setValue(trip.getTotalBudget()-trip.getMainPlaneCost());
-        currentTripRef.child("daysList").setValue("none");
         currentTripRef.child("bonusTravel").setValue(trip.getBonusTravel());
         currentTripRef.child("departure").setValue(trip.getDeparture());
         currentTripRef.child("food").setValue(trip.getFood());
         currentTripRef.child("lodging").setValue(trip.getLodging());
         currentTripRef.child("activity").setValue(trip.getActivity());
         currentTripRef.child("transport").setValue(trip.getTransport());
+
+        //Pour les daysList
+        String keyDays =  usersDatabase.child(currentUserInfo.getid()).child("tripsList").child("daysList").push().getKey();
+        currentTripRef.child("daysList").child(keyDays).child("food").setValue(2.15);
+        currentTripRef.child("daysList").child(keyDays).child("lodging").setValue(0);
+        currentTripRef.child("daysList").child(keyDays).child("activity").setValue(0);
+        currentTripRef.child("daysList").child(keyDays).child("transport").setValue(0);
+        currentTripRef.child("daysList").child(keyDays).child("id").setValue(keyDays);
+        currentTripRef.child("daysList").child(keyDays).child("date").setValue(trip.getDeparture());
+        currentTripRef.child("daysList").child(keyDays).child("title").setValue("jour 1");
+
+        //Pour tests
+        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("title").setValue("Jus");
+        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("category").setValue("food");
+        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("value").setValue(2.15);
+
     }
 
+    //Modifie le style d'un voyage
     public void writeStyle(String style, String id){
         DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(id);
 
@@ -129,5 +149,38 @@ public class DatabaseProfile {
             currentTripRef.child("transport").setValue(15);
         }
 
+    }
+
+    //Ajoute une dépense
+    public void writeExpense(Expense expense, Trip currentTrip, Vector<DaysInfos> daysList){
+        String rank = "";
+        String idDay = "";
+        DaysInfos day = new DaysInfos();
+
+        Date date = new Date();
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for(DaysInfos dayInfo : daysList){
+            try {
+                date = format.parse(dayInfo.getDate());
+
+                if(now.after(date)){
+                    idDay = dayInfo.getId();
+                    day = dayInfo;
+                    rank = String.valueOf(day.getExpenses().size());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        DatabaseReference currentDayRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay);
+        currentDayRef.child(expense.getCategory()).setValue(day.getCategoryValue(expense.getCategory())+expense.getValue());
+        DatabaseReference currentExpenseRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay).child("expenses").child(rank);
+        currentExpenseRef.child("title").setValue(expense.getTitle());
+        currentExpenseRef.child("category").setValue(expense.getCategory());
+        currentExpenseRef.child("value").setValue(expense.getValue());
+
+        //CHANGER ENSUITE LES MONTANTS RESTANTS DANS LE BUDGET
     }
 }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
 import com.gbombardier.tripocketmanager.fragments.DatePickerFragment;
-import com.gbombardier.tripocketmanager.models.DayInfo;
+import com.gbombardier.tripocketmanager.models.DaysInfos;
 import com.gbombardier.tripocketmanager.models.Trip;
 
 import java.text.ParseException;

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.adapters.TripAdapter;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
+import com.gbombardier.tripocketmanager.models.DaysInfos;
 import com.gbombardier.tripocketmanager.models.Trip;
 import com.gbombardier.tripocketmanager.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayoutManager mLayoutManager;
     private TripAdapter adapter;
     private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference usersDatabase = rootRef.child("users");
+    private DatabaseReference usersDatabase = rootRef.child("users"), daysDatabase;
     private User currentUserInfo;
 
     @Override
@@ -116,6 +117,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     currentUserInfo.addTrip(trip);
                     tripList.add(trip);
                     adapter.notifyItemInserted(tripList.size()-1);
+                    //getDaysList(currentUserInfo, trip);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}});
+    }
+
+    //Pour avoir les infos des journées
+    public void getDaysList(User user, final Trip currentTrip){
+        daysDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getid()).child("tripsList").child(currentTrip.getid()).child("daysList");
+        daysDatabase.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (com.google.firebase.database.DataSnapshot daysDataSnapshot : dataSnapshot.getChildren()) {
+                    DaysInfos day = daysDataSnapshot.getValue(DaysInfos.class);
+                    currentTrip.addDay(day);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

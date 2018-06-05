@@ -17,7 +17,7 @@ public class Trip implements Serializable{
     private int remainingDays;
     private float totalBudget;
     private float remainingMoney;
-    private Vector<DayInfo> daysList;
+    private Vector<DaysInfos> daysList = new Vector<>();
     private float bonusTravel;
     private String departure;
     private float food, lodging, activity, transport;
@@ -37,7 +37,7 @@ public class Trip implements Serializable{
         this.totalBudget = totalBudget;
     }
 
-    public Trip(String destination, float mainPlaneCost, float mainPlaneDays, int totalTripDays, String tripStyle, int remainingDays, float totalBudget, float remainingMoney, Vector<DayInfo> daysList, float bonusTravel) {
+    public Trip(String destination, float mainPlaneCost, float mainPlaneDays, int totalTripDays, String tripStyle, int remainingDays, float totalBudget, float remainingMoney, Vector<DaysInfos> daysList, float bonusTravel) {
         this.destination = destination;
         this.mainPlaneCost = mainPlaneCost;
         this.mainPlaneDays = mainPlaneDays;
@@ -123,11 +123,11 @@ public class Trip implements Serializable{
     }
 
     @Exclude
-    public Vector<DayInfo> getDaysList() {
+    public Vector<DaysInfos> getDaysList() {
         return daysList;
     }
 
-    public void setDaysList(Vector<DayInfo> daysList) {
+    public void setDaysList(Vector<DaysInfos> daysList) {
         this.daysList = daysList;
     }
 
@@ -177,5 +177,13 @@ public class Trip implements Serializable{
 
     public void setTransport(int transport) {
         this.transport = transport;
+    }
+
+    public void addDay(DaysInfos day){
+        daysList.add(day);
+    }
+
+    public void eraseList(){
+        daysList.clear();
     }
 }

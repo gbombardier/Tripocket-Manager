@@ -175,7 +175,7 @@ public class TripWatcherActivity extends AppCompatActivity {
                     if(trip.getDestination().equals(currentTrip.getDestination())){
                         currentTrip = trip;
                         daysList = currentTrip.getDaysList();
-                        totalBudget = currentTrip.getTotalBudget()-currentTrip.getMainPlaneCost();
+                        totalBudget = currentTrip.getRemainingMoney();
                         updateUI();
                         getDaysList(user);
                     }
@@ -247,6 +247,8 @@ public class TripWatcherActivity extends AppCompatActivity {
 
                 //Pour le recyclerView
                 mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                mLayoutManager.setReverseLayout(true);
+                mLayoutManager.setStackFromEnd(true);
                 viewDays.setLayoutManager(mLayoutManager);
                 viewDays.setItemAnimator(new DefaultItemAnimator());
                 adapterRecycler = new DayAdapter(currentTrip.getDaysList(), TripWatcherActivity.this);
@@ -261,7 +263,7 @@ public class TripWatcherActivity extends AppCompatActivity {
     //Quand on vient d'ajouter une dépense
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        getDaysList(currentUserInfo);
+        getTripInfo(currentUserInfo);
     }
 
 

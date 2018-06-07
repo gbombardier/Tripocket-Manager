@@ -44,6 +44,41 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/line_departure"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/expense_date_button"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:onClick="showTimePickerDialog"
+            android:text="Choisir Date"
+            android:layout_gravity="center"
+            app:fontFamily="@font/roboto_medium"
+            android:elevation="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/button_effect"/>
+
+        <TextView
+            android:id="@+id/expense_date_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pas de date"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:fontFamily="@font/roboto_thin"
+            android:textSize="16sp"
+            android:textColor="#000"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"

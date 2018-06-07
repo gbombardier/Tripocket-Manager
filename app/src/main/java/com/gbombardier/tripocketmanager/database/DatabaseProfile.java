@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -31,12 +32,14 @@ public class DatabaseProfile {
     DatabaseReference myRef;
     private boolean persEnabled = false;
     private User currentUserInfo;
+    private int createdDays = 1;
 
     private DatabaseProfile(final Context context) {
         this.context = context;
 
         if(persEnabled == false){
             persEnabled = true;
+            FirebaseDatabase.getInstance().setPersistenceEnabled(false);
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             usersDatabase = rootRef.child("users");
         }else{
@@ -49,7 +52,7 @@ public class DatabaseProfile {
 
     public static DatabaseProfile getInstance(final Context context) {
         if(instance == null) {
-            //FirebaseDatabase.getInstance().setPersistenceEnabled(false);
+            //
             instance = new DatabaseProfile(context);
         }
 
@@ -102,21 +105,91 @@ public class DatabaseProfile {
         currentTripRef.child("activity").setValue(trip.getActivity());
         currentTripRef.child("transport").setValue(trip.getTransport());
 
+        //Ajouter des daysinfo pour toutes les day depuis le départ
+        Date date = new Date();
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = format.parse(trip.getDeparture());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //Modifier si le budget est créé avant le départ
+        float daysToCreate =  (now.getTime()-date.getTime())/(1000*60*60*24);
+
+        for(int i = 0; i<=daysToCreate;i++){
+            if(i==0){
+                writeDay(key, trip, true, trip.getDeparture());
+            }else{
+                String dt = trip.getDeparture();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar c = Calendar.getInstance();
+                try {
+                    c.setTime(sdf.parse(dt));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                c.add(Calendar.DATE, i);
+                dt = sdf.format(c.getTime());
+                writeDay(key, trip, false, dt);
+            }
+            createdDays++;
+        }
+    }
+
+    public String writeDay(String key, Trip trip, boolean create, String dayDate){
         //Pour les daysList
-        String keyDays =  usersDatabase.child(currentUserInfo.getid()).child("tripsList").child("daysList").push().getKey();
-        currentTripRef.child("daysList").child(keyDays).child("food").setValue(2.15);
+        DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(key);
+        String keyDays =  currentTripRef.child("daysList").push().getKey();
+
+        currentTripRef.child("daysList").child(keyDays).child("food").setValue(0);
         currentTripRef.child("daysList").child(keyDays).child("lodging").setValue(0);
         currentTripRef.child("daysList").child(keyDays).child("activity").setValue(0);
         currentTripRef.child("daysList").child(keyDays).child("transport").setValue(0);
         currentTripRef.child("daysList").child(keyDays).child("id").setValue(keyDays);
-        currentTripRef.child("daysList").child(keyDays).child("date").setValue(trip.getDeparture());
-        currentTripRef.child("daysList").child(keyDays).child("title").setValue("jour 1");
 
-        //Pour tests
-        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("title").setValue("Jus");
-        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("category").setValue("food");
-        currentTripRef.child("daysList").child(keyDays).child("expenses").child("1").child("value").setValue(2.15);
+        try{
+            createdDays = trip.getDaysList().size()+1;
+        }catch(Exception e){
+            createdDays = 1;
+        }
 
+        if(create){
+            currentTripRef.child("daysList").child(keyDays).child("date").setValue(trip.getDeparture());
+            currentTripRef.child("daysList").child(keyDays).child("title").setValue("jour 1");
+        }else{
+            currentTripRef.child("daysList").child(keyDays).child("date").setValue(dayDate);
+            String jour = "jour " + (createdDays);
+            currentTripRef.child("daysList").child(keyDays).child("title").setValue(jour);
+        }
+
+        return keyDays;
+    }
+
+    //Pour le modele de date
+    public String formatDate(Date date){
+        int day = date.getDate();
+        int month = date.getMonth();
+        int year = date.getYear()+1900;
+
+        String stringMonth, stringDay;
+        month++;
+        if(month<=9){
+            stringMonth = "0"+month;
+        }else{
+            stringMonth = String.valueOf(month);
+        }
+
+        if(day<=9){
+            stringDay = "0"+day;
+        }else{
+            stringDay = String.valueOf(day);
+        }
+
+        String dateString = year + "-" + stringMonth + "-" + stringDay;
+
+        return dateString;
     }
 
     //Modifie le style d'un voyage
@@ -152,10 +225,12 @@ public class DatabaseProfile {
     }
 
     //Ajoute une dépense
-    public void writeExpense(Expense expense, Trip currentTrip, Vector<DaysInfos> daysList){
+    public void writeExpense(Expense expense, Trip currentTrip, Vector<DaysInfos> daysList, String dayDate){
         String rank = "";
         String idDay = "";
+        boolean found =false;
         DaysInfos day = new DaysInfos();
+        DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid());
 
         Date date = new Date();
         Date now = new Date();
@@ -163,15 +238,22 @@ public class DatabaseProfile {
         for(DaysInfos dayInfo : daysList){
             try {
                 date = format.parse(dayInfo.getDate());
+                now= format.parse(dayDate);
 
-                if(now.after(date)){
+                if(now.equals(date)){
                     idDay = dayInfo.getId();
                     day = dayInfo;
                     rank = String.valueOf(day.getExpenses().size());
+                    found = true;
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }
+
+        if(!found){
+            idDay = writeDay(currentTrip.getid(), currentTrip, false, dayDate);
+            rank = "1";
         }
 
         DatabaseReference currentDayRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay);
@@ -181,6 +263,6 @@ public class DatabaseProfile {
         currentExpenseRef.child("category").setValue(expense.getCategory());
         currentExpenseRef.child("value").setValue(expense.getValue());
 
-        //CHANGER ENSUITE LES MONTANTS RESTANTS DANS LE BUDGET
+        currentTripRef.child("remainingMoney").setValue(currentTrip.getRemainingMoney()-expense.getValue());
     }
 }

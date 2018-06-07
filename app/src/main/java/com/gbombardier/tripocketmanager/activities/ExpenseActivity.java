@@ -1,6 +1,7 @@
 package com.gbombardier.tripocketmanager.activities;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,14 +12,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.database.DatabaseProfile;
+import com.gbombardier.tripocketmanager.fragments.DatePickerExpenseFragment;
+import com.gbombardier.tripocketmanager.fragments.DatePickerFragment;
+import com.gbombardier.tripocketmanager.models.DaysInfos;
 import com.gbombardier.tripocketmanager.models.Expense;
 import com.gbombardier.tripocketmanager.models.Trip;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ExpenseActivity extends AppCompatActivity {
     private EditText descriptionView, amountView;
+    private TextView dateView;
     private Spinner categorySpinner;
     private ImageView cancelButton;
     private Button saveButton;
@@ -35,6 +45,7 @@ public class ExpenseActivity extends AppCompatActivity {
         categorySpinner = findViewById(R.id.expense_category);
         cancelButton = findViewById(R.id.expense_cancel);
         saveButton = findViewById(R.id.expense_validate);
+        dateView = findViewById(R.id.expense_date_title);
 
         currentExpense = new Expense();
         currentExpense.setCategory("food"); //Parce que dans la liste nourriture est celui en premier
@@ -60,7 +71,9 @@ public class ExpenseActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean valid = true;
+                boolean valid = true, dateValid = false;
+                Date date = new Date();
+                Date now = new Date();
 
                 if(currentExpense.equals("none")){
                     valid = false;
@@ -70,7 +83,28 @@ public class ExpenseActivity extends AppCompatActivity {
                     valid = false;
                 }
 
-                if(valid == true){
+                if(dateView.getText().equals("Pas de date")){
+                    valid = false;
+                }else{
+                    //Vérifier si la date est dans le voyage
+
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+                    for(DaysInfos day : currentTrip.getDaysList()){
+                        try {
+                            date = format.parse(currentTrip.getDeparture());
+                            now = format.parse(dateView.getText().toString());
+                            if(now.after(date) || now.equals(date)){
+                                dateValid = true;
+                            }
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                if(valid && dateValid){
                     currentExpense.setTitle(descriptionView.getText().toString());
                     currentExpense.setValue(Float.parseFloat(amountView.getText().toString()));
 
@@ -79,7 +113,7 @@ public class ExpenseActivity extends AppCompatActivity {
                     setResult(RESULT_OK, data);
 
                     //Enregistrer les valeurs
-                    DatabaseProfile.getInstance(getApplicationContext()).writeExpense(currentExpense, currentTrip, currentTrip.getDaysList());
+                    DatabaseProfile.getInstance(getApplicationContext()).writeExpense(currentExpense, currentTrip, currentTrip.getDaysList(), dateView.getText().toString());
 
                     finish();
                 }
@@ -103,5 +137,35 @@ public class ExpenseActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+    }
+
+    public void showTimePickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerExpenseFragment();
+        newFragment.show(this.getFragmentManager(), "timePicker");
+    }
+
+    //Pour le modele de date
+    public String formatDate(Date date){
+        int day = date.getDate();
+        int month = date.getMonth();
+        int year = date.getYear()+1900;
+
+        String stringMonth, stringDay;
+        month++;
+        if(month<=9){
+            stringMonth = "0"+month;
+        }else{
+            stringMonth = String.valueOf(month);
+        }
+
+        if(day<=9){
+            stringDay = "0"+day;
+        }else{
+            stringDay = String.valueOf(day);
+        }
+
+        String dateString = year + "-" + stringMonth + "-" + stringDay;
+
+        return dateString;
     }
 }

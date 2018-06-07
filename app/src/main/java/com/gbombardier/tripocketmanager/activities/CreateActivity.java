@@ -36,7 +36,6 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
         budgetEdit = findViewById(R.id.totalBudget_edit);
         nbrDaysEdit = findViewById(R.id.tripDays_edit);
         planePriceEdit = findViewById(R.id.mainPlaneCost_edit);
-        planeDaysEdit = findViewById(R.id.mainPlaneDays_edit);
         departureDateView = findViewById(R.id.departure_view);
 
         createButton.setOnClickListener(this);
@@ -48,7 +47,7 @@ public class CreateActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void writeTrip(){
-        currentTrip = new Trip(destinationEdit.getText().toString(), Float.parseFloat(planePriceEdit.getText().toString()), Integer.parseInt(planeDaysEdit.getText().toString()), Integer.parseInt(nbrDaysEdit.getText().toString()), null, Integer.parseInt(nbrDaysEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), null, 0);
+        currentTrip = new Trip(destinationEdit.getText().toString(), Float.parseFloat(planePriceEdit.getText().toString()), 0, Integer.parseInt(nbrDaysEdit.getText().toString()), null, Integer.parseInt(nbrDaysEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), Float.parseFloat(budgetEdit.getText().toString()), null, 0);
 
         //Pour transformer la date
         /*Date date = new Date();

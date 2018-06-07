@@ -22,11 +22,13 @@
         <activity android:name=".activities.CreateActivity" />
         <activity android:name=".activities.TripWatcherActivity" />
         <activity android:name=".activities.MoreInfoActivity" />
-        <activity android:name=".activities.ExpenseActivity"></activity>
+        <activity android:name=".activities.ExpenseActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".activities.OneDayWatcherActivity"></activity>
     </application>
 
 </manifest>

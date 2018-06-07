@@ -41,8 +41,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView viewTrips;
     private LinearLayoutManager mLayoutManager;
     private TripAdapter adapter;
-    private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference usersDatabase = rootRef.child("users"), daysDatabase;
+    private DatabaseReference rootRef, usersDatabase, daysDatabase;
     private User currentUserInfo;
 
     @Override
@@ -54,6 +53,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         myDatabase = DatabaseProfile.getInstance(this);
+        rootRef = FirebaseDatabase.getInstance().getReference();
+        usersDatabase = rootRef.child("users");
 
         //If no user connected
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {

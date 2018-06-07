@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.gbombardier.tripocketmanager.activities.CreateActivity;
+import com.gbombardier.tripocketmanager.activities.OneDayWatcherActivity;
 import com.gbombardier.tripocketmanager.activities.TripWatcherActivity;
 import com.gbombardier.tripocketmanager.models.DaysInfos;
 import com.gbombardier.tripocketmanager.models.Trip;
@@ -50,9 +51,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
     //Solution pour le listener trouvée ici: https://stackoverflow.com/questions/42721571/recyclerview-onitemclicklistener
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        DaysInfos day = daysList.get(position);
-        holder.title.setText(day.getTitle());
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        final DaysInfos day = daysList.get(position);
+        holder.title.setText(day.getDate());
 
         //Pour le total de dépenses
         float total = day.getFood() + day.getLodging() + day.getTransport() + day.getActivity();
@@ -61,9 +62,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i = new Intent(v.getContext(), TripWatcherActivity.class);
-                //i.putExtra("destination", holder.destination.getText());
-                //v.getContext().startActivity(i);
+                Intent i = new Intent(v.getContext(), OneDayWatcherActivity.class);
+                i.putExtra("day", daysList.get(position));
+                v.getContext().startActivity(i);
             }
         });
     }

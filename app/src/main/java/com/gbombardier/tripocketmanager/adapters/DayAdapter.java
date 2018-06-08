@@ -24,6 +24,7 @@ import java.util.List;
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
     private List<DaysInfos> daysList;
+    private Trip currentTrip;
     public Activity activity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -37,9 +38,10 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     }
 
 
-    public DayAdapter(List<DaysInfos> daysList, Activity activity) {
+    public DayAdapter(List<DaysInfos> daysList, Activity activity, Trip trip) {
         this.daysList = daysList;
         this.activity = activity;
+        this.currentTrip = trip;
     }
 
     @Override
@@ -64,6 +66,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), OneDayWatcherActivity.class);
                 i.putExtra("day", daysList.get(position));
+                i.putExtra("trip", currentTrip);
                 v.getContext().startActivity(i);
             }
         });

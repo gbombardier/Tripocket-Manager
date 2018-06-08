@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         passwordEditText = (EditText)findViewById(R.id.edit_text_password);
         titleView = (TextView)findViewById(R.id.login_title);
 
-        emailAddressEditText.setText("gabb_bomb@hotmail.com");
-        passwordEditText.setText("AAAaaa111");
+        //emailAddressEditText.setText("gabb_bomb@hotmail.com");
+        //passwordEditText.setText("AAAaaa111");
 
         btnRegister.setOnClickListener(this);
         btnConnect.setOnClickListener(this);

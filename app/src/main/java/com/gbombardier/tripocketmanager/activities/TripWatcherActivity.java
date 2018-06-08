@@ -251,7 +251,7 @@ public class TripWatcherActivity extends AppCompatActivity {
                 mLayoutManager.setStackFromEnd(true);
                 viewDays.setLayoutManager(mLayoutManager);
                 viewDays.setItemAnimator(new DefaultItemAnimator());
-                adapterRecycler = new DayAdapter(currentTrip.getDaysList(), TripWatcherActivity.this);
+                adapterRecycler = new DayAdapter(currentTrip.getDaysList(), TripWatcherActivity.this, currentTrip);
                 viewDays.setAdapter(adapterRecycler);
                 viewDays.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL));
             }

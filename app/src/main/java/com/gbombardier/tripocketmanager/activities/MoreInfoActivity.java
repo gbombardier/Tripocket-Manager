@@ -22,7 +22,7 @@ public class MoreInfoActivity extends AppCompatActivity {
     private TextView totalTotalView, totalJourView, totalRestantView, totalJourRestantView;
     private TextView styleView;
     private float totalBudget;
-    NumberFormat formatter = NumberFormat.getNumberInstance();
+    private NumberFormat formatter = NumberFormat.getNumberInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

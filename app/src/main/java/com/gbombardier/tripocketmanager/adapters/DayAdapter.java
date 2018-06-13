@@ -16,9 +16,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gbombardier.tripocketmanager.activities.CreateActivity;
 import com.gbombardier.tripocketmanager.activities.OneDayWatcherActivity;
 import com.gbombardier.tripocketmanager.activities.TripWatcherActivity;
+import com.gbombardier.tripocketmanager.fragments.DayExpensesFragment;
 import com.gbombardier.tripocketmanager.models.DaysInfos;
+import com.gbombardier.tripocketmanager.models.Expense;
 import com.gbombardier.tripocketmanager.models.Trip;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {

@@ -15,11 +15,13 @@ import com.gbombardier.tripocketmanager.R;
 import com.gbombardier.tripocketmanager.fragments.DatePickerFragment;
 import com.gbombardier.tripocketmanager.fragments.DayExpensesFragment;
 import com.gbombardier.tripocketmanager.models.DaysInfos;
+import com.gbombardier.tripocketmanager.models.Expense;
 import com.gbombardier.tripocketmanager.models.Trip;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class OneDayWatcherActivity extends AppCompatActivity {
@@ -83,9 +85,11 @@ public class OneDayWatcherActivity extends AppCompatActivity {
 
     //Pour afficher le fragment des infos de dépense
     public void showExpensesFragment(String category) {
+
         DialogFragment newFragment = new DayExpensesFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("day", currentDay);
+        bundle.putSerializable("cat", category);
         newFragment.setArguments(bundle);
         newFragment.show(this.getFragmentManager(), "timePicker");
     }

@@ -232,6 +232,7 @@ public class DatabaseProfile {
         DaysInfos day = new DaysInfos();
         DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid());
 
+
         Date date = new Date();
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -259,9 +260,53 @@ public class DatabaseProfile {
         DatabaseReference currentDayRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay);
         currentDayRef.child(expense.getCategory()).setValue(day.getCategoryValue(expense.getCategory())+expense.getValue());
         DatabaseReference currentExpenseRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay).child("expenses").child(rank);
+
+        String keyExp =  currentExpenseRef.push().getKey();
+        currentExpenseRef.child("id").setValue(keyExp);
         currentExpenseRef.child("title").setValue(expense.getTitle());
         currentExpenseRef.child("category").setValue(expense.getCategory());
         currentExpenseRef.child("value").setValue(expense.getValue());
+
+        currentTripRef.child("remainingMoney").setValue(currentTrip.getRemainingMoney()-expense.getValue());
+    }
+
+    //Modifie une dépense
+    public void editExpense(final Expense expense, final Trip currentTrip, Vector<DaysInfos> daysList, String dayDate){
+        final String rank = "";
+        final String idDay = "";
+        boolean found =false;
+        DaysInfos day = new DaysInfos();
+        DatabaseReference currentTripRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid());
+
+
+        currentTripRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (com.google.firebase.database.DataSnapshot tripsDataSnapshot : dataSnapshot.getChildren()) {
+                    Trip trip = tripsDataSnapshot.getValue(Trip.class);
+
+                    int compteur =0;
+                    for(DaysInfos day : trip.getDaysList()){
+                        if(day.getExpenses()!=null){
+                            for(Expense exp : day.getExpenses()){
+                                if(exp.getId().equals(expense.getId())){
+                                    DatabaseReference currentExpenseRef = usersDatabase.child(currentUserInfo.getid()).child("tripsList").child(currentTrip.getid()).child("daysList").child(idDay).child("expenses").child(String.valueOf(compteur));
+                                    currentExpenseRef.child("title").setValue(expense.getTitle());
+                                    currentExpenseRef.child("category").setValue(expense.getCategory());
+                                    currentExpenseRef.child("value").setValue(expense.getValue());
+                                }else{
+                                    compteur++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}});
+
+
 
         currentTripRef.child("remainingMoney").setValue(currentTrip.getRemainingMoney()-expense.getValue());
     }

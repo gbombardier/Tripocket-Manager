@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.75"
         android:elevation="5dp"
-        android:background="@drawable/login_bg">
+        android:background="#d3d3d3">
 
         <ImageView
             android:id="@+id/settings_back_button"
@@ -38,6 +38,7 @@
         android:id="@+id/settings_account_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="4"
         android:gravity="center"

@@ -115,7 +115,7 @@ public class MoreInfoActivity extends AppCompatActivity {
         transRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getTransport()/100))));
 
         //Les budgets par jour restants
-        totalJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()/currentTrip.getTotalTripDays())));
+        totalJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()/daysRemaining)));
         nourritureJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getFood()/100)/daysRemaining)));
         hebJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getLodging()/100)/daysRemaining)));
         actJourRestantView.setText(String.valueOf(formatter.format(currentTrip.getRemainingMoney()*(currentTrip.getActivity()/100)/daysRemaining)));

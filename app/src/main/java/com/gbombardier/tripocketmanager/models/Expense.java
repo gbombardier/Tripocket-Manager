@@ -5,16 +5,19 @@ import java.io.Serializable;
 public class Expense implements Serializable {
     private String category, title;
     private float value;
+    private String id;
 
     public Expense(){
         this.category = "none";
         this.title = "none";
         this.value = 0;
+        this.id = "";
     }
-    public Expense(String category, String title, float value) {
+    public Expense(String category, String title, float value, String id) {
         this.category = category;
         this.title = title;
         this.value = value;
+        this.id = id;
     }
 
     public String getCategory() {
@@ -39,5 +42,13 @@ public class Expense implements Serializable {
 
     public void setValue(float value) {
         this.value = value;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

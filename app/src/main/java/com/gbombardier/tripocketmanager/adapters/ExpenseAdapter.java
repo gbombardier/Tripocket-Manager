@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gbombardier.tripocketmanager.R;
+import com.gbombardier.tripocketmanager.activities.ExpenseActivity;
 import com.gbombardier.tripocketmanager.activities.OneDayWatcherActivity;
+import com.gbombardier.tripocketmanager.activities.TripWatcherActivity;
 import com.gbombardier.tripocketmanager.fragments.DayExpensesFragment;
 import com.gbombardier.tripocketmanager.models.DaysInfos;
 import com.gbombardier.tripocketmanager.models.Expense;
@@ -81,7 +83,21 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.MyViewHo
 
             final float value = expenses.get(position).getValue();
             holder.value.setText(String.valueOf(value));
+
+            /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ExpenseActivity.class);
+                    i.putExtra("title", expenses.get(position).getTitle());
+                    i.putExtra("value", String.valueOf(expenses.get(position).getValue()));
+                    i.putExtra("cat", expenses.get(position).getCategory());
+                    i.putExtra("id", expenses.get(position).getId());
+                    v.getContext().startActivity(i);
+                }
+            });*/
         }
+
+
 
     }
 

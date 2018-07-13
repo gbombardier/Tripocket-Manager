@@ -47,8 +47,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         switch (id){
             case R.id.settings_back_button:
-                Intent i = new Intent(SettingsActivity.this, HomeActivity.class);
-                startActivity(i);
+                finish();
                 break;
 
             case R.id.settings_button_logout:

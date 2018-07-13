@@ -34,6 +34,7 @@ public class ExpenseActivity extends AppCompatActivity {
     private Button saveButton;
     private Trip currentTrip = new Trip();
     private Expense currentExpense;
+    private boolean fromExpense = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,44 @@ public class ExpenseActivity extends AppCompatActivity {
 
         if( getIntent().getExtras()!=null){
             currentTrip = (Trip)getIntent().getSerializableExtra("trip");
+
+            //Lorsqu'on l'ouvre en cliquant sur une dépense
+            if(getIntent().getStringExtra("title")!=null){
+                currentExpense.setCategory(getIntent().getStringExtra("cat"));
+                currentExpense.setTitle(getIntent().getStringExtra("title"));
+                currentExpense.setValue(Float.parseFloat(getIntent().getStringExtra("value")));
+                currentExpense.setId(getIntent().getStringExtra("id"));
+                fromExpense = true;
+            }
         }
 
         //Pour le spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_array, R.layout.spinner_design);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+
+        //Lorsqu'on l'ouvre en cliquant sur une dépense
+        if(fromExpense){
+            descriptionView.setText(currentExpense.getTitle());
+            amountView.setText(String.valueOf(currentExpense.getValue()));
+
+            switch(currentExpense.getCategory()){
+                case "food":
+                    categorySpinner.setSelection(0);
+                    break;
+                case "lodging":
+                    categorySpinner.setSelection(1);
+                    break;
+                case "activity":
+                    categorySpinner.setSelection(2);
+                    break;
+                case "transport":
+                    categorySpinner.setSelection(3);
+                    break;
+            }
+            saveButton.setText("Modifier");
+        }
+
 
         //Pour gérer ce qui se passe si on appuie sur les boutons
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +146,12 @@ public class ExpenseActivity extends AppCompatActivity {
                     setResult(RESULT_OK, data);
 
                     //Enregistrer les valeurs
-                    DatabaseProfile.getInstance(getApplicationContext()).writeExpense(currentExpense, currentTrip, currentTrip.getDaysList(), dateView.getText().toString());
+                    if(fromExpense){
+                        DatabaseProfile.getInstance(getApplicationContext()).editExpense(currentExpense, currentTrip, currentTrip.getDaysList(), dateView.getText().toString());
+                    }else{
+                        DatabaseProfile.getInstance(getApplicationContext()).writeExpense(currentExpense, currentTrip, currentTrip.getDaysList(), dateView.getText().toString());
+                    }
+
 
                     finish();
                 }

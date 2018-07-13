@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private TextView emailAddressTitle, pwdTitle, pwd2Title, pageTitle;
     private static FirebaseAuth firebaseAuth;
     private DatabaseProfile myDatabase;
+    private ImageView btn_back;
 
     public static void show(Context context) {
         Intent i = new Intent(context, LoginActivity.class);
@@ -56,8 +58,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         pwdTitle = (TextView) findViewById(R.id.register_pwd_title);
         pwd2Title = (TextView) findViewById(R.id.register_pwd2_title);
         pageTitle = (TextView) findViewById(R.id.register_title);
+        btn_back = findViewById(R.id.register_back_button);
 
         btnRegister.setOnClickListener(this);
+        btn_back.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +70,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if(id == R.id.btn_register) {
             validerRegister();
+        }
+
+        if(id == R.id.register_back_button){
+            finish();
         }
    }
 
